@@ -1,0 +1,38 @@
+CREATE DATABASE seu_banco_de_dados;
+
+USE seu_banco_de_dados;
+
+CREATE TABLE produto (
+    codigo INT PRIMARY KEY,
+    nome VARCHAR(100),
+    descricao TEXT,
+    preco_custo DOUBLE,
+    preco_venda DOUBLE,
+    quantidade_estoque INT,
+    categoria VARCHAR(50)
+);
+
+CREATE TABLE cliente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    cpf VARCHAR(11),
+    data_nascimento DATE,
+    email VARCHAR(100)
+);
+
+CREATE TABLE venda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT,
+    forma_pagamento VARCHAR(50),
+    valor_total DOUBLE,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+);
+
+CREATE TABLE venda_produto (
+    venda_id INT,
+    produto_id INT,
+    quantidade INT,
+    PRIMARY KEY (venda_id, produto_id),
+    FOREIGN KEY (venda_id) REFERENCES venda(id),
+    FOREIGN KEY (produto_id) REFERENCES produto(codigo)
+);
